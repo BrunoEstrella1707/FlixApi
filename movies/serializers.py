@@ -3,6 +3,7 @@ from movies.models import Movie
 from django.db.models import Avg
 from genres.serializers import GenreSerializer
 from actors.serializers import ActorSerializer
+from reviews.serializers import ReviewSerializer
 
 
 class MovieSerializer(serializers.ModelSerializer):
@@ -43,6 +44,15 @@ class MovieListDetailSerializer(serializers.ModelSerializer):
             return round(rate, 2)
         
         return None
+
+
+class MovieReviewListSerializer(serializers.ModelSerializer):
+    reviews = ReviewSerializer(many=True)
+
+    class Meta:
+        model = Movie
+        fields = ['id', 'title', 'reviews']
+    
 
 
 class MovieStatsSerializer(serializers.Serializer):
